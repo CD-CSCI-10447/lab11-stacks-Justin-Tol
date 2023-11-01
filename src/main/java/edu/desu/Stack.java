@@ -1,27 +1,45 @@
 package edu.desu;
 
+import java.util.EmptyStackException;
+
 public class Stack<T> {
-    private Node top;
+    private Node<T> top;
     private int size;
 
 
     public void push(T data) {
+        Node<T> oldTop = top;
+        Node<T> newNode = new Node<>(data);
+        newNode.setNextNode(oldTop);
+        this.top = newNode;
+        size++;
     }
 
     public T pop() {
-        return null;
+        if (this.top != null){
+            T data = top.getData();
+            top = top.getNextNode();
+            size--;
+            return data;
+        } else {
+            throw new EmptyStackException();
+        }
     }
 
     public T peek() {
-        return null;
+        if (this.top != null){
+            return this.top.getData();
+        } else {
+            throw new EmptyStackException();
+        }
     }
 
     public Boolean isEmpty() {
-        return  null;
+        return (size == 0);
     }
 
     public int size() {
-        return -1;
+        return size;
     }
 }
 
